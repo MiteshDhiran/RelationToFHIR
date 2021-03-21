@@ -30,6 +30,7 @@ namespace RelationToFHIRActorLibrary
                 .With<RelationalToBlobSyncRequest>(r =>
                 {
                     _requestQueue.AddRequestToQueue(r);
+                    Console.WriteLine($"Added Request To Queue {r.ModelKey}");
                     var requestToProcess = _requestQueue.GetRequestToProcess();
                     if (requestToProcess != null)
                     {
@@ -39,6 +40,7 @@ namespace RelationToFHIRActorLibrary
                 .With<RequestCompleted>(rc =>
                 {
                     _requestQueue.MarkRequestCompleted(rc.Request);
+                    Console.WriteLine($"Marked Request As Completed {rc.Request.ModelKey}");
                     var requestToProcess = _requestQueue.GetRequestToProcess();
                     if (requestToProcess != null)
                     {
